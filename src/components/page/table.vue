@@ -1,5 +1,13 @@
 <template>
 	<div class="table">
+		<div class="add">
+			<ul>
+				<li><label>姓名:</label><input type="text" v-model="people.name" /></li>
+				<li><label>性别:</label><input type="text" v-model="people.sex" /></li>
+				<li><label>年龄:</label><input type="text" v-model="people.age" /></li>
+				<div @click="plus()">添加</div>
+			</ul>
+		</div>
 		<dl>
 			<dt>
 				<p>id</p>
@@ -16,14 +24,6 @@
 				<p><span @click="edit(index)" v-if="!item.edit">编辑</span><span @click="okNo(index)" :class=" item.edit ? 'block':'none'">确定</span><span @click="del(index)">删除</span></p>
 			</dd>
 		</dl>
-		<div class="add">
-			<ul>
-				<li><label>姓名:</label><input type="text" v-model="people.name" /></li>
-				<li><label>性别:</label><input type="text" v-model="people.sex" /></li>
-				<li><label>年龄:</label><input type="text" v-model="people.age" /></li>
-				<div @click="plus()">添加</div>
-			</ul>
-		</div>
 	</div>
 </template>
 
@@ -62,6 +62,7 @@
 //				console.log(data)
 				this.$axios.post("http://localhost:3001/peoplelist",data)
 				.then(res=>{
+					this.getList()
 					console.log("添加成功")
 //				    console.log(res);            
 				}).catch((err) => {
@@ -75,7 +76,7 @@
 					let id = this.peoplelist[index].id
 //					console.log(id)
 					this.$axios.delete("http://localhost:3001/peoplelist/"+id).then( res => {
-//						console.log(res)
+						console.log("删除成功")
 						this.getList()
 					}).catch((err) => {
 						console.log("失败")
@@ -105,11 +106,22 @@
 			},
 			getList(){
 				this.$axios.get("http://localhost:3001/peoplelist").then( res => {
-				 	this.peoplelist=res.data
-//				   	console.log(result.data)     
+//				 	this.peoplelist=res.data
+//				   	console.log(this.peoplelist)
+				   	var a = res.data
+					var b = []
+				   	var len = res.data.length-1
+					for( var i=0; i<=len ;i++){
+//						console.log(a[len-i])
+						b.push(a[len-i])
+//						console.log(b)
+					}
+//					console.log(b)
+					this.peoplelist = b
 				}).catch((err) => {
 					console.log("失败")
 				})
+				
 			}
 		}
 	}
@@ -148,9 +160,12 @@
 		display: none; flex: 1;
 	}
 	.add{
-		width: 600px; margin: 0 auto;
+		width: 660px; margin: 0 auto;
+	}
+	.add ul{
+		display: flex;
 	}
 	.add ul li{
-		height: 30px; line-height: 30px; display: flex;
+		height: 30px; line-height: 30px; display: inline-flex;
 	}
 </style>
