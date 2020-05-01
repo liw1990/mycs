@@ -1,0 +1,20 @@
+* { margin: 0; padding: 0; }
+
+html, body { text-align: center; font-family: "microsoft yahei",arial, helvetica, sans-serif; position: relative; }
+
+body { text-align: left; }
+
+li { list-style: none; }
+
+a { text-decoration: none; }
+
+input, div, p, a, span { outline-style: none; }
+
+img { display: block; border: none; }
+
+header { height: 120px; width: 100%; }
+header input { width: auto; padding: 0 15px; height: 45px; margin: 0 auto; }
+header .dianji { width: 200px; height: 200px; background: #333; margin: 0 auto; }
+header .dianji p { width: 100px; height: 100px; margin: 0 auto; background: #eee; }
+
+/*# sourceMappingURL=index.css.map */
